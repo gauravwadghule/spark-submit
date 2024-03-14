@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spark-submit
+  name: spark-submit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-submit
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spark-submit
+    spec:
+      volumes:
+        - name: spark-submit-v1
+          persistentVolumeClaim:
+            claimName: spark-submit-v1
+      containers:
+      - image: tabulario/spark-iceberg
+        name: spark-iceberg
+        resources: {}
+        volumeMounts:
+        - mountPath: "/data"
+          name: spark-submit-v1
+status: {}
